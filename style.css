@@ -1,0 +1,8 @@
+
+p {
+ border: 3px solid gray;
+}
+
+.hidden {
+  opacity: 0.3;
+}
