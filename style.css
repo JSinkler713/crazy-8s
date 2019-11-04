@@ -6,3 +6,32 @@ p {
 .hidden {
   opacity: 0.3;
 }
+
+.game {
+  display: grid;
+  grid-template-columns: 10% 20% 30% 30% 20% 10%;
+  grid-template-rows: 20% 10% 30% 10% 30%;
+  border: 2px solid gray;
+  min-height: 800px;
+}
+
+header {
+  grid-column: 3 / 4;
+  grid row: 1;
+  border: 2px solid red;
+}
+.deck {
+  grid-column: 3 / 4;
+  grid row: 4 / 6;
+  border: 2px dashed green;
+}
+.played-cards {
+  grid-column: 4 / 5;
+  grid row: 4 / 6;
+  border: 2px solid blue;
+}
+.player-hand {
+  grid-column: 3 / 5;
+  grid row: 5 / 6;
+  border: 3px solid orange;
+}
