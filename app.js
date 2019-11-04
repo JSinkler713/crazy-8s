@@ -35,5 +35,17 @@ let makeDeck = function() {
 let deck = makeDeck();
 console.log(deck);
 
+//shuffle deck
 
+
+
+//deal the player 7 cards
+let deal = function(deck) {
+  //assume deck was shuffled for now
+  let playerHand = deck.splice(0, 7);
+  return playerHand;
+}
+let playerHand = deal(deck);
+
+console.log(playerHand);
 
