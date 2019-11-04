@@ -1,21 +1,25 @@
 //let pElement = document.querySelector('p');
-//let htmlElement = document.querySelector('html');
+let htmlElement = document.querySelector('html');
 
 //function to toggle hidden class
-//let stylechange = function (e) {
-//	let target = getEventTarget(e);
-//	target.classList.toggle('hidden');
-//}
+let allChanges = function (e) {
+	//find out which element was targeted
+	let target = getEventTarget(e);
+	if(target.classList[0] == "deck") {
+		//draw a card and put in player hand
+		draw();
+	}
+}
 
 
 //this gets the specific element that was clicked..
-//let getEventTarget = function (event) {
-//	console.log(event.target);
-//	return event.target;
-//}
+let getEventTarget = function (event) {
+	console.log(event.target);
+	return event.target;
+}
 
 //By adding to html it will work on all elements on page..
-//htmlElement.addEventListener('click', stylechange);
+htmlElement.addEventListener('click', allChanges);
 
 //make the deck 52 cards, 13 of each type, 4 suits.
 let makeDeck = function() {
@@ -45,9 +49,18 @@ let deal = function(deck) {
   return playerHand;
 }
 let playerHand = deal(deck);
-
+let updateHand = function () {
+        for (card of playerHand) {
+                let text = card.value + " of " + card.suit + "'s";
+                console.log(text);
+                let cardDiv = document.createElement('div');
+                cardDiv.innerText = text;
+                cardDiv.classList.add('card');
+                document.querySelector(".player-hand").append(cardDiv);
+        }
+}
 console.log(playerHand);
-
+updateHand();
 //initialize playedCards array
 let playedCards = [];
 
@@ -72,14 +85,22 @@ let playedCardFunc = function () {
         document.querySelector(".played-cards").append(cardDiv);
 	}
 }
-for (card of playerHand) {
-	let text = card.value + " of " + card.suit + "'s";
-	console.log(text);
-	let cardDiv = document.createElement('div');
-	cardDiv.innerText = text;
-	cardDiv.classList.add('card');
-	document.querySelector(".player-hand").append(cardDiv);
+
+//function to allow player to draw from the deck
+let draw = function () {
+  let newCard = deck.splice(0,1)[0];
+  console.log(newCard);
+  playerHand.push(newCard);
+  let text = newCard.value + " of " + newCard.suit + "'s";
+  console.log(text);
+  let cardDiv = document.createElement('div');
+  cardDiv.innerText = text;
+  cardDiv.classList.add('card');
+  document.querySelector(".player-hand").append(cardDiv);
 }
+  
+
+
 
 initCard();
 playedCardFunc();
