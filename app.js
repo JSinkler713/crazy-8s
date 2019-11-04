@@ -34,9 +34,8 @@ let makeDeck = function() {
 
 let deck = makeDeck();
 console.log(deck);
-
 //shuffle deck
-
+//Need to complete
 
 
 //deal the player 7 cards
@@ -49,13 +48,39 @@ let playerHand = deal(deck);
 
 console.log(playerHand);
 
-//flip over the starting card
-let startgame = function() {
-  let firstCardPlayed = deck.splice(0, 1);
-  return firstCardPlayed;
-}
-let firstCardPlayed = startgame();
+//initialize playedCards array
+let playedCards = [];
 
-console.log(firstCardPlayed);
+//flip over the starting card
+let initCard = function() {
+  let firstCardPlayed = deck.splice(0, 1);
+  playedCards.push(firstCardPlayed[0]);
+}
+
 console.log(deck);
 
+let playedCardFunc = function () {
+  //this should push a card into the array and then display the top card
+  //the top card is the one thats just been added.
+  
+  for (card of playedCards) {
+        let text = card.value + " of " + card.suit + "'s";
+        console.log(text);
+        let cardDiv = document.createElement('div');
+        cardDiv.innerText = text;
+        cardDiv.classList.add('card');
+        document.querySelector(".played-cards").append(cardDiv);
+	}
+}
+for (card of playerHand) {
+	let text = card.value + " of " + card.suit + "'s";
+	console.log(text);
+	let cardDiv = document.createElement('div');
+	cardDiv.innerText = text;
+	cardDiv.classList.add('card');
+	document.querySelector(".player-hand").append(cardDiv);
+}
+
+initCard();
+playedCardFunc();
+console.log(deck);
