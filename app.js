@@ -49,3 +49,13 @@ let playerHand = deal(deck);
 
 console.log(playerHand);
 
+//flip over the starting card
+let startgame = function() {
+  let firstCardPlayed = deck.splice(0, 1);
+  return firstCardPlayed;
+}
+let firstCardPlayed = startgame();
+
+console.log(firstCardPlayed);
+console.log(deck);
+
