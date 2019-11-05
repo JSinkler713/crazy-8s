@@ -91,8 +91,32 @@ let playCard = function (card) {
 	console.log("Compare to: ", doneCards[0])
 	//console.log(playedCards[0].value);
 	//console.log(playedCards[0].suit);
-	if(card.suit == doneCards[0].suit || card.value == doneCards[0].value) {
-		console.log("LEGIT!")
+	if (card.value == 8) {
+		let changeSuit = prompt("That's an eight, what do you want to change the suit to?");
+		//
+		let newCard = {
+			suit: changeSuit,
+			value: 8
+		}
+		let overWrittenCard = doneCards.pop();
+		graveyard.push(overWrittenCard);
+		//need to remove card from playerHand
+		//get index of card and then splice
+		let indexOfCard = playerHand.indexOf(card);
+		//splice out of playerHand
+		playerHand.splice(indexOfCard, 1);
+		//take out the div element associated with it as well
+		let playerHandElement = document.querySelector('.player-hand');
+		let divToRemove = playerHandElement.childNodes[indexOfCard + 1];
+		playerHandElement.removeChild(divToRemove);
+		//console.log(indexOfCard);
+		let playedPileElement = document.querySelector('.played-cards');
+		playedPileElement.removeChild(playedPileElement.firstChild);
+		doneCards.push(newCard);
+		playedCardFunc();
+	}
+	else if (card.suit == doneCards[0].suit || card.value == doneCards[0].value) {
+		console.log("Playing it! That is a valid card")
 		let overWrittenCard = doneCards.pop();
 		graveyard.push(overWrittenCard);
 		//need to remove card from playerHand
@@ -109,10 +133,9 @@ let playCard = function (card) {
 		playedPileElement.removeChild(playedPileElement.firstChild);
 		doneCards.push(card);
 		playedCardFunc();
-
 	}
 	else {
-		console.log("BOO")
+		console.log("That doesn't work, you need to match the suit/value/ or play an eight")
 	}
 }
 
