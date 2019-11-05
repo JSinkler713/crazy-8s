@@ -30,6 +30,10 @@ header {
   grid row: 4 / 6;
   border: 2px solid blue;
 }
+.played-card.firstChild {
+  opacity: 0.5;
+}
+
 .player-hand {
   grid-column: 3 / 5;
   grid row: 5 / 6;

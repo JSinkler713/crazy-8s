@@ -46,32 +46,54 @@ let updateHand = function (playerHand) {
 }
 updateHand(playerHand)
 
-let playFirstCard = function(deck, playedCards) {
-	playedCards.push(deck.pop())
+let playFirstCard = function(deck, doneCards) {
+	doneCards.push(deck.pop())
 }
-let playedCards = []
-playFirstCard(deck, playedCards)
+let doneCards = [];
+let graveyard = [];
+playFirstCard(deck, doneCards)
 
 
 let playedCardFunc = function () {
   //this should push a card into the array and then display the top card
-    for (card of playedCards) {
+    for (let card of doneCards) {
         let cardDiv = document.createElement('div');
         cardDiv.innerText = `${card.value} of ${card.suit}`;
 		cardDiv.classList.add('card');
         document.querySelector(".played-cards").append(cardDiv);
 	}
 }
+//call function to show played cards in browser
+playedCardFunc();
+
+
 //function to allow player to play a card into the "Played" area
 let playCard = function (card) {
 	//see which card was clicked-its the div that represents it - not the object
 	//chec if it has the same "suit" or "value" or is an "eight"
 	console.log("User playing: ", card);
-	console.log("Compare to: ", playedCards[0])
+	console.log("Compare to: ", doneCards[0])
 	//console.log(playedCards[0].value);
 	//console.log(playedCards[0].suit);
-	if(card.suit == playedCards[0].suit || card.value == playedCards[0].value) {
+	if(card.suit == doneCards[0].suit || card.value == doneCards[0].value) {
 		console.log("LEGIT!")
+		let overWrittenCard = doneCards.pop();
+		graveyard.push(overWrittenCard);
+		//need to remove card from playerHand
+		//get index of card and then splice
+		let indexOfCard = playerHand.indexOf(card);
+		//splice out of playerHand
+		playerHand.splice(indexOfCard, 1);
+		//take out the div element associated with it as well
+		let playerHandElement = document.querySelector('.player-hand');
+		let divToRemove = playerHandElement.childNodes[indexOfCard + 1];
+		playerHandElement.removeChild(divToRemove);
+		//console.log(indexOfCard);
+		let playedPileElement = document.querySelector('.played-cards');
+		playedPileElement.removeChild(playedPileElement.firstChild);
+		doneCards.push(card);
+		playedCardFunc();
+
 	}
 	else {
 		console.log("BOO")
@@ -97,5 +119,5 @@ let draw = function () {
 let deckElement = document.querySelector('.deck');
 deckElement.addEventListener('click', draw);
 
-//playedCardFunc();
-//console.log(deck);	
+
+console.log(deck);	
