@@ -54,10 +54,22 @@ let dealSeven = function(deck) {
 }
 //deal player
 let playerHand = dealSeven(deck);
+//get length .. if ever 0 after this it's Game over Player Wins
+let pHandLength = playerHand.length;
+
 //deal computer
 let computerHand = dealSeven(deck);
-
+//get length .. if ever 0 after this it's Game over Comp wins
+let cHandLength = computerHand.length;
 // pass in a hand, and the class of the parent element to attach to
+
+//check for win
+let checkWin = function(hand) {
+	if(hand.length == 0) {
+		console.log("WINNNNERRRR");
+	}
+}
+
 
 let updateHand = function (playerHand, parentClass) {
 	console.log("Update Hand")
@@ -132,6 +144,8 @@ let computerPlay = function () {
 		playedPileElement.removeChild(playedPileElement.firstChild);
 		doneCards.push(compCard);
 		playedCardFunc();
+		//check if hand empty if so console log winner!!!!!
+		checkWin(computerHand);
 	}
 }
 let playedCardFunc = function () {
@@ -178,6 +192,8 @@ let playCard = function (card) {
 		playedPileElement.removeChild(playedPileElement.firstChild);
 		doneCards.push(newCard);
 		playedCardFunc();
+		//check if hand empty if so console log winner!!!!!
+		checkWin(playerHand);
 		//then get computer to play use timer to make more real feeling
 		setTimeout(computerPlay, 3000);
 	}
@@ -199,6 +215,8 @@ let playCard = function (card) {
 		playedPileElement.removeChild(playedPileElement.firstChild);
 		doneCards.push(card);
 		playedCardFunc();
+		//check if hand empty if so console log winner!!!!!
+		checkWin(playerHand);
 		//then get computer to play a card use timer to make more real feeling
 		setTimeout(computerPlay, 3000);
 	}
@@ -233,6 +251,3 @@ let draw = function () {
 
 let deckElement = document.querySelector('.deck');
 deckElement.addEventListener('click', draw);
-
-
-console.log(deck);	
