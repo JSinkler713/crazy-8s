@@ -19,6 +19,22 @@ let makeDeck = function() {
 
 let deck = makeDeck();
 //shuffle deck
+console.log(deck);
+let shuffle = function(deck) {
+	let length = deck.length;
+	let shuffledDeck = [];
+	while (length > 0) {
+		let randomIndex = Math.floor(Math.random()*length);
+		let randomCard = deck.splice(randomIndex, 1);
+		shuffledDeck.push(randomCard[0]);
+		length -= 1;
+	}
+	return shuffledDeck;
+}
+deck = shuffle(deck)
+console.log(deck);
+
+
 //Need to complete
 
 
