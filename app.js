@@ -86,7 +86,52 @@ let doneCards = [];
 let graveyard = [];
 playFirstCard(deck, doneCards)
 
+//function to allow the computer to play a card or if none available draw a card.
+let findCompCard = function () {
+	let cardToPlay;
+	for (let card of computerHand) {
+		if (card.suit == doneCards[0].suit || card.value == doneCards[0].value) {
+		cardToPlay = card;
+		} else if (card.value == 8) {
+		cardToPlay = card;
+		//maybe choose random suit later
+		}
+	}
+	console.log(cardToPlay);
+	return cardToPlay;
+}
 
+
+let computerPlay = function () {
+	let compCard = findCompCard();
+	console.log("what do i have:" + compCard)
+	console.log(typeof compCard);
+	if (compCard == undefined) {
+		//computer needs to keep drawing cards.. use timer to make more like a game
+		//take a card from deck and update comp hand and run findCompCard function again
+		let compDrawnCard = deck.pop();
+		computerHand.push(compDrawnCard);
+		compCard = setTimeout(findCompCard(), 4000);
+	} else  {
+		console.log("The computer is playing it! This is a valid card: " + compCard.value + "of " + compCard.suit)
+		let overWrittenCard = doneCards.pop();
+		graveyard.push(overWrittenCard);
+		//need to remove card from playerHand
+		//get index of card and then splice
+		let indexOfCard = computerHand.indexOf(compCard);
+		//splice out of playerHand
+		computerHand.splice(indexOfCard, 1);
+		//take out the div element associated with it as well
+		let computerHandElement = document.querySelector('.computer-hand');
+		let divToRemove = computerHandElement.childNodes[indexOfCard + 1];
+		computerHandElement.removeChild(divToRemove);
+		//console.log(indexOfCard);
+		let playedPileElement = document.querySelector('.played-cards');
+		playedPileElement.removeChild(playedPileElement.firstChild);
+		doneCards.push(compCard);
+		playedCardFunc();
+	}
+}
 let playedCardFunc = function () {
   //this should push a card into the array and then display the top card
     for (let card of doneCards) {
@@ -131,6 +176,8 @@ let playCard = function (card) {
 		playedPileElement.removeChild(playedPileElement.firstChild);
 		doneCards.push(newCard);
 		playedCardFunc();
+		//then get computer to play
+		computerPlay();
 	}
 	else if (card.suit == doneCards[0].suit || card.value == doneCards[0].value) {
 		console.log("Playing it! That is a valid card")
@@ -150,6 +197,8 @@ let playCard = function (card) {
 		playedPileElement.removeChild(playedPileElement.firstChild);
 		doneCards.push(card);
 		playedCardFunc();
+		//then get computer to play a card
+		computerPlay();
 	}
 	else {
 		console.log("That doesn't work, you need to match the suit/value/ or play an eight")
