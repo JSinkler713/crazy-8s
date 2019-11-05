@@ -4,6 +4,7 @@
 //make the deck 52 cards, 13 of each type, 4 suits.
 let makeDeck = function() {
 	let deck = [];
+	let facecards = ['Ace', 'King', 'Queen', 'Jack'];
 	let suits = ['clubs', 'hearts', 'spades', 'diamonds'];
 	for (let suit of suits) {
 		for (let i = 2; i <= 10; i++) {
@@ -12,7 +13,14 @@ let makeDeck = function() {
 			newcard.value = i;
 			deck.push(newcard);
 		}
-	}
+		for (let face of facecards) {
+			let newcard = {
+				suit: suit,
+				value: face
+			}
+			deck.push(newcard);
+		}
+	} 
 	console.log("Make Deck: ", deck)
 	return deck;
 }
