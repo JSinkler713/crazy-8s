@@ -43,8 +43,7 @@ deck = shuffle(deck)
 console.log(deck);
 
 
-//Need to complete
-
+//deal computer and player hands and update DOM
 
 //deal the player 7 cards need to connect to DOM
 let dealSeven = function(deck) {
@@ -53,9 +52,14 @@ let dealSeven = function(deck) {
 	console.log("Deal Seven: ", playerHand)
 	return playerHand;
 }
+//deal player
 let playerHand = dealSeven(deck);
+//deal computer
+let computerHand = dealSeven(deck);
 
-let updateHand = function (playerHand) {
+// pass in a hand, and the class of the parent element to attach to
+
+let updateHand = function (playerHand, parentClass) {
 	console.log("Update Hand")
 	for (let card of playerHand) {
 		console.log("Card: ", card)
@@ -65,10 +69,15 @@ let updateHand = function (playerHand) {
 		cardDiv.addEventListener('click', function() {
 			playCard(card);
 		});
-		document.querySelector(".player-hand").append(cardDiv);
+		document.querySelector(parentClass).append(cardDiv);
 	}
 }
-updateHand(playerHand)
+//attach to DOM playerHand
+updateHand(playerHand, ".player-hand")
+//attach to DOM computerhand
+updateHand(computerHand, ".computer-hand")
+
+
 
 let playFirstCard = function(deck, doneCards) {
 	doneCards.push(deck.pop())
