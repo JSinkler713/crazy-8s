@@ -97,6 +97,9 @@ let findCompCard = function () {
 		//maybe choose random suit later
 		}
 	}
+
+
+
 	console.log(cardToPlay);
 	return cardToPlay;
 }
@@ -109,17 +112,16 @@ let computerPlay = function () {
 	if (compCard == undefined) {
 		//computer needs to keep drawing cards.. use timer to make more like a game
 		//take a card from deck and update comp hand and run findCompCard function again
-		let compDrawnCard = deck.pop();
-		computerHand.push(compDrawnCard);
-		compCard = setTimeout(findCompCard(), 4000);
-	} else  {
-		console.log("The computer is playing it! This is a valid card: " + compCard.value + "of " + compCard.suit)
+		computerDraw()
+		compCard = setTimeout(findCompCard, 4000);
+	} else {
+		setTimeout(console.log("The computer is playing it! This is a valid card: " + compCard.value + "of " + compCard.suit), 5000);
 		let overWrittenCard = doneCards.pop();
 		graveyard.push(overWrittenCard);
-		//need to remove card from playerHand
+		//need to remove card from computerHand
 		//get index of card and then splice
 		let indexOfCard = computerHand.indexOf(compCard);
-		//splice out of playerHand
+		//splice out of computerHand
 		computerHand.splice(indexOfCard, 1);
 		//take out the div element associated with it as well
 		let computerHandElement = document.querySelector('.computer-hand');
@@ -176,8 +178,8 @@ let playCard = function (card) {
 		playedPileElement.removeChild(playedPileElement.firstChild);
 		doneCards.push(newCard);
 		playedCardFunc();
-		//then get computer to play
-		computerPlay();
+		//then get computer to play use timer to make more real feeling
+		setTimeout(computerPlay, 3000);
 	}
 	else if (card.suit == doneCards[0].suit || card.value == doneCards[0].value) {
 		console.log("Playing it! That is a valid card")
@@ -197,8 +199,8 @@ let playCard = function (card) {
 		playedPileElement.removeChild(playedPileElement.firstChild);
 		doneCards.push(card);
 		playedCardFunc();
-		//then get computer to play a card
-		computerPlay();
+		//then get computer to play a card use timer to make more real feeling
+		setTimeout(computerPlay, 3000);
 	}
 	else {
 		console.log("That doesn't work, you need to match the suit/value/ or play an eight")
@@ -206,7 +208,15 @@ let playCard = function (card) {
 }
 
 
-
+//get computer to update hand and draw if they dont have a card
+let computerDraw = function () {
+	let newCard = deck.splice(0,1)[0];
+	computerHand.push(newCard);
+	let cardDiv = document.createElement('div');
+	cardDiv.innerText = `${newCard.value} of ${newCard.suit}`
+	cardDiv.classList.add('card');
+	document.querySelector(".computer-hand").append(cardDiv);
+}
 //function to allow player to draw from the deck
 let draw = function () {
   let newCard = deck.splice(0,1)[0];
