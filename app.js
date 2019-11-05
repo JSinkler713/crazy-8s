@@ -125,7 +125,7 @@ let computerPlay = function () {
 		//computer needs to keep drawing cards.. use timer to make more like a game
 		//take a card from deck and update comp hand and run findCompCard function again
 		computerDraw()
-		compCard = setTimeout(findCompCard, 4000);
+		compCard = setTimeout(computerPlay(), 4000);
 	} else {
 		setTimeout(console.log("The computer is playing it! This is a valid card: " + compCard.value + "of " + compCard.suit), 5000);
 		let overWrittenCard = doneCards.pop();
