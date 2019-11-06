@@ -46,26 +46,69 @@ console.log(deck);
 //deal computer and player hands and update DOM
 
 //deal the player 7 cards need to connect to DOM
-let dealSeven = function(deck) {
-	//assume deck was shuffled for now
-	let playerHand = deck.splice(0, 7);
-	console.log("Deal Seven: ", playerHand)
-	return playerHand;
-}
+
 //deal player
 //let playerHand = dealSeven(deck);
-let playerHand;
+let playerHand = []
 let pHandLength;
 //get length .. if ever 0 after this it's Game over Player Wins
 //let pHandLength = playerHand.length;
 
 //deal computer
 //let computerHand = dealSeven(deck);
-let computerHand;
+let computerHand = []
 let cHandLength;
 //get length .. if ever 0 after this it's Game over Comp wins
 //let cHandLength = computerHand.length;
+let dealSeven = function(deck) {
+	//assume deck was shuffled for now
+	for (let i=0; i < 7; i++) {
+		draw();
+		computerDraw();
+	}
+}
+
 // pass in a hand, and the class of the parent element to attach to
+//get computer to update hand and draw if they dont have a card
+
+let computerDraw = function () {
+	reshuffle(graveyard);
+	let newCard = deck.splice(0,1)[0];
+	computerHand.push(newCard);
+	let left = computerHand.length;
+	let cardDiv = document.createElement('div');
+	cardDiv.innerText = `${newCard.value} of ${newCard.suit}`
+	cardDiv.classList.add('card');
+	cardDiv.style['z-index'] = computerHand.length * 10;
+	cardDiv.style.left = (computerHand.length)*30 + 'px';	
+	document.querySelector(".computer-hand").append(cardDiv);
+}
+//function to update deck with used cards if the deck gets to a size of zero
+//player and computer may draw all the cards before game ends
+let reshuffle = function(usedCards) {
+	if (deck.length == 0 ) {
+		deck = shuffle(usedCards);
+	}
+}
+
+//function to allow player to draw from the deck
+let draw = function () {
+  reshuffle(graveyard);
+  let newCard = deck.splice(0,1)[0];
+  playerHand.push(newCard);
+  let cardDiv = document.createElement('div');
+  cardDiv.innerText = `${newCard.value} of ${newCard.suit}`
+  cardDiv.classList.add('card');
+  cardDiv.style['z-index'] = playerHand.length * 10;
+  cardDiv.style.left = (playerHand.length)*30 + 'px';
+  cardDiv.addEventListener('click', function() {
+	  playCard(newCard);
+  });
+  document.querySelector(".player-hand").append(cardDiv);
+}
+
+
+
 
 //check for win
 let checkWin = function(hand) {
@@ -76,7 +119,7 @@ let checkWin = function(hand) {
 	}
 }
 
-
+/* 
 let updateHand = function (Hand, parentClass) {
 	console.log("Update Hand")
 	for (let card of Hand) {
@@ -92,20 +135,18 @@ let updateHand = function (Hand, parentClass) {
 		}
 		document.querySelector(parentClass).append(cardDiv);
 	}
-}
+} */
 //attach to DOM playerHand
 //updateHand(playerHand, ".player-hand")
 //attach to DOM computerhand
 //updateHand(computerHand, ".computer-hand")
-
-
 
 let playFirstCard = function(deck, doneCards) {
 	doneCards.push(deck.pop())
 }
 let doneCards = [];
 let graveyard = [];
-//playFirstCard(deck, doneCards)
+
 
 
 
@@ -114,12 +155,9 @@ let graveyard = [];
 
 
 let playGameButtonFunction = function() {
-	playerHand = dealSeven(deck);
+	dealSeven(deck);
 	pHandLength = playerHand.length;
-	updateHand(playerHand, ".player-hand")
-	computerHand = dealSeven(deck);
 	cHandLength = computerHand.length;
-	updateHand(computerHand, ".computer-hand")
 	playFirstCard(deck, doneCards);
 	playedCardFunc();
 }
@@ -252,37 +290,7 @@ let playCard = function (card) {
 }
 
 
-//get computer to update hand and draw if they dont have a card
-let computerDraw = function () {
-	reshuffle(graveyard);
-	let newCard = deck.splice(0,1)[0];
-	computerHand.push(newCard);
-	let cardDiv = document.createElement('div');
-	cardDiv.innerText = `${newCard.value} of ${newCard.suit}`
-	cardDiv.classList.add('card');
-	document.querySelector(".computer-hand").append(cardDiv);
-}
-//function to update deck with used cards if the deck gets to a size of zero
-//player and computer may draw all the cards before game ends
-let reshuffle = function(usedCards) {
-	if (deck.length == 0 ) {
-		deck = shuffle(usedCards);
-	}
-}
 
-//function to allow player to draw from the deck
-let draw = function () {
-  reshuffle(graveyard);
-  let newCard = deck.splice(0,1)[0];
-  playerHand.push(newCard);
-  let cardDiv = document.createElement('div');
-  cardDiv.innerText = `${newCard.value} of ${newCard.suit}`
-  cardDiv.classList.add('card');
-  cardDiv.addEventListener('click', function() {
-	  playCard(newCard);
-  });
-  document.querySelector(".player-hand").append(cardDiv);
-}
 
 //enable draw function when deckElement is clicked
 let deckElement = document.querySelector('.deck');
