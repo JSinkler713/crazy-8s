@@ -67,6 +67,8 @@ let cHandLength = computerHand.length;
 let checkWin = function(hand) {
 	if(hand.length == 0) {
 		console.log("WINNNNERRRR");
+		let winnerElement = '<span class="winner">Game Over we all won!!!</span>';
+		document.querySelector('.game').innerHTML = winnerElement;
 	}
 }
 

@@ -53,3 +53,8 @@ header {
   border: 1px solid gray;
   margin: 2px;
 }
+.winner {
+  font-size: 45px;
+  color: red;
+  margin: 0 auto;
+}
