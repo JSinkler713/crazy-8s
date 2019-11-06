@@ -53,14 +53,18 @@ let dealSeven = function(deck) {
 	return playerHand;
 }
 //deal player
-let playerHand = dealSeven(deck);
+//let playerHand = dealSeven(deck);
+let playerHand;
+let pHandLength;
 //get length .. if ever 0 after this it's Game over Player Wins
-let pHandLength = playerHand.length;
+//let pHandLength = playerHand.length;
 
 //deal computer
-let computerHand = dealSeven(deck);
+//let computerHand = dealSeven(deck);
+let computerHand;
+let cHandLength;
 //get length .. if ever 0 after this it's Game over Comp wins
-let cHandLength = computerHand.length;
+//let cHandLength = computerHand.length;
 // pass in a hand, and the class of the parent element to attach to
 
 //check for win
@@ -90,9 +94,9 @@ let updateHand = function (Hand, parentClass) {
 	}
 }
 //attach to DOM playerHand
-updateHand(playerHand, ".player-hand")
+//updateHand(playerHand, ".player-hand")
 //attach to DOM computerhand
-updateHand(computerHand, ".computer-hand")
+//updateHand(computerHand, ".computer-hand")
 
 
 
@@ -101,8 +105,27 @@ let playFirstCard = function(deck, doneCards) {
 }
 let doneCards = [];
 let graveyard = [];
-playFirstCard(deck, doneCards)
+//playFirstCard(deck, doneCards)
 
+
+
+
+//put functions in playGameButtonFunction
+
+
+let playGameButtonFunction = function() {
+	playerHand = dealSeven(deck);
+	pHandLength = playerHand.length;
+	updateHand(playerHand, ".player-hand")
+	computerHand = dealSeven(deck);
+	cHandLength = computerHand.length;
+	updateHand(computerHand, ".computer-hand")
+	playFirstCard(deck, doneCards);
+	playedCardFunc();
+}
+
+let buttonElement = document.querySelector('.start');
+buttonElement.addEventListener('click', playGameButtonFunction);
 
 //function to allow the computer to play a card from their hand or if none available draw a card.
 let findCompCard = function () {
