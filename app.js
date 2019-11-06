@@ -98,7 +98,11 @@ let doneCards = [];
 let graveyard = [];
 playFirstCard(deck, doneCards)
 
-//function to allow the computer to play a card or if none available draw a card.
+
+
+
+
+//function to allow the computer to play a card from their hand or if none available draw a card.
 let findCompCard = function () {
 	let cardToPlay;
 	for (let card of computerHand) {
@@ -228,6 +232,7 @@ let playCard = function (card) {
 
 //get computer to update hand and draw if they dont have a card
 let computerDraw = function () {
+	reshuffle(graveyard);
 	let newCard = deck.splice(0,1)[0];
 	computerHand.push(newCard);
 	let cardDiv = document.createElement('div');
@@ -235,8 +240,17 @@ let computerDraw = function () {
 	cardDiv.classList.add('card');
 	document.querySelector(".computer-hand").append(cardDiv);
 }
+//function to update deck with used cards if the deck gets to a size of zero
+//player and computer may draw all the cards before game ends
+let reshuffle = function(usedCards) {
+	if (deck.length == 0 ) {
+		deck = shuffle(usedCards);
+	}
+}
+
 //function to allow player to draw from the deck
 let draw = function () {
+  reshuffle(graveyard);
   let newCard = deck.splice(0,1)[0];
   playerHand.push(newCard);
   let cardDiv = document.createElement('div');
@@ -247,7 +261,9 @@ let draw = function () {
   });
   document.querySelector(".player-hand").append(cardDiv);
 }
-  
+
 
 let deckElement = document.querySelector('.deck');
 deckElement.addEventListener('click', draw);
+
+
