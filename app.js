@@ -261,11 +261,11 @@ let draw = function () {
   document.querySelector(".player-hand").append(cardDiv);
 }
 
-
+//enable draw function when deckElement is clicked
 let deckElement = document.querySelector('.deck');
 deckElement.addEventListener('click', draw);
 
-
+//toggle computer hand a visible or not
 let hide = function (e) {
 	this.classList.toggle('hidden');
 }

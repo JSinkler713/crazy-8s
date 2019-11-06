@@ -18,6 +18,8 @@ header {
     grid-row: 1;
     border: 2px solid red;
     text-align: center;
+    font-family: 'Noto Serif', serif;
+    font-size: 55px;
 }
 .deck {
     grid-column: 2 / 3;
