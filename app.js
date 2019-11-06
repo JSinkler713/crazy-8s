@@ -71,16 +71,19 @@ let checkWin = function(hand) {
 }
 
 
-let updateHand = function (playerHand, parentClass) {
+let updateHand = function (Hand, parentClass) {
 	console.log("Update Hand")
-	for (let card of playerHand) {
+	for (let card of Hand) {
 		console.log("Card: ", card)
 		let cardDiv = document.createElement('div');
 		cardDiv.innerText = `${card.value} of ${card.suit}`
 		cardDiv.classList.add('card');
-		cardDiv.addEventListener('click', function() {
-			playCard(card);
-		});
+		//if user than add this part form DOM interactivity
+		if (Hand == playerHand) {
+			cardDiv.addEventListener('click', function() {
+				playCard(card);
+			});
+		}
 		document.querySelector(parentClass).append(cardDiv);
 	}
 }
