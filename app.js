@@ -102,9 +102,6 @@ let graveyard = [];
 playFirstCard(deck, doneCards)
 
 
-
-
-
 //function to allow the computer to play a card from their hand or if none available draw a card.
 let findCompCard = function () {
 	let cardToPlay;
@@ -116,14 +113,11 @@ let findCompCard = function () {
 		//maybe choose random suit later
 		}
 	}
-
-
-
 	console.log(cardToPlay);
 	return cardToPlay;
 }
 
-
+//called everytime after player plays a card
 let computerPlay = function () {
 	let compCard = findCompCard();
 	console.log("what do i have:" + compCard)
@@ -270,3 +264,9 @@ let deckElement = document.querySelector('.deck');
 deckElement.addEventListener('click', draw);
 
 
+let hide = function (e) {
+	this.classList.toggle('hidden');
+}
+let computerHandElement = document.querySelector('.computer-hand');
+console.log(computerHandElement);
+computerHandElement.addEventListener('click', hide);
