@@ -113,8 +113,15 @@ let draw = function () {
 //check for win
 let checkWin = function(hand) {
 	if(hand.length == 0) {
-		console.log("WINNNNERRRR");
-		let winnerElement = '<span class="winner">Game Over we all won!!!</span>';
+	let winner;
+		if(hand == computerHand) {
+			winner = "Computer";
+		} else {
+			winner = "Player";
+		}
+		let winningStatement = (+ winner + " has won!");
+		let winnerElement = '<div class="winner">'+winningStatement+' Reload the page to play again.'+'</div>';
+
 		document.querySelector('.game').innerHTML = winnerElement;
 	}
 }
@@ -176,6 +183,8 @@ let computerPlay = function () {
 		let divToRemove = computerHandElement.childNodes[indexOfCard + 1];
 		computerHandElement.removeChild(divToRemove);
 		//updatehand
+		//checkwin
+		checkWin(computerHand);
 		for (let i = indexOfCard; i<= computerHand.length; i++) {
 			if(i === 0) {
 				i++
@@ -192,7 +201,7 @@ let computerPlay = function () {
 		doneCards.push(compCard);
 		playedCardFunc();
 		//check if hand empty if so console log winner!!!!!
-		checkWin(computerHand);
+		
 	}
 }
 let playedCardFunc = function () {
@@ -235,7 +244,8 @@ let playCard = function (card) {
 		let divToRemove = playerHandElement.childNodes[indexOfCard + 1];
 		playerHandElement.removeChild(divToRemove);
 		//update the left position of the next cards....so that they slide over to proper spot
-
+		//check if 0 cards update if won!!
+		checkWin(playerHand);
 		for (let i = indexOfCard; i<= playerHand.length; i++) {
 			if(i === 0) {
 				i++
@@ -251,7 +261,7 @@ let playCard = function (card) {
 		doneCards.push(newCard);
 		playedCardFunc();
 		//check if hand empty if so console log winner!!!!!
-		checkWin(playerHand);
+		
 		//then get computer to play use timer to make more real feeling
 		setTimeout(computerPlay, 3000);
 	}
@@ -270,6 +280,8 @@ let playCard = function (card) {
 		playerHandElement.removeChild(divToRemove);
 		//console.log(indexOfCard);
 
+		//check win
+		checkWin(playerHand);
 		//update position of cards
 
 
@@ -293,7 +305,6 @@ let playCard = function (card) {
 			cardToChangeLeft.style['z-index']= i*10;
 			
 		}
-		checkWin(playerHand);
 		//then get computer to play a card use timer to make more real feeling
 		setTimeout(computerPlay, 3000);
 	}

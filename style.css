@@ -26,8 +26,10 @@ p {
 }
 .winner {
   font-size: 45px;
-  color: red;
+  color: rgb(7, 7, 20);
   margin: 0 auto;
+  grid-row: 3 / 4;
+  grid-column: 2 / 5;
 }
 .played-cards > .card {
   width: 100%;
@@ -44,7 +46,7 @@ p {
   grid-template-rows: 25% 25% 25% 25%;
   border: 2px solid gray;
   min-height: 600px;
-  background: rgb(56, 122, 92);
+  background: rgb(12, 156, 91);
 }
 header {
   grid-column: 2 / 4;
