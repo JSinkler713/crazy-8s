@@ -41,6 +41,10 @@ p {
  .computer-hand > .card {
   color: rgb(213, 213, 213);
  }
+.computer-hand>.card:hover {
+  color:black;
+  transition: color 2s;
+}
 
 /* Grid for mobile */
 .game {
