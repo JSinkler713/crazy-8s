@@ -119,41 +119,13 @@ let checkWin = function(hand) {
 	}
 }
 
-/* 
-let updateHand = function (Hand, parentClass) {
-	console.log("Update Hand")
-	for (let card of Hand) {
-		console.log("Card: ", card)
-		let cardDiv = document.createElement('div');
-		cardDiv.innerText = `${card.value} of ${card.suit}`
-		cardDiv.classList.add('card');
-		//if user than add this part form DOM interactivity
-		if (Hand == playerHand) {
-			cardDiv.addEventListener('click', function() {
-				playCard(card);
-			});
-		}
-		document.querySelector(parentClass).append(cardDiv);
-	}
-} */
-//attach to DOM playerHand
-//updateHand(playerHand, ".player-hand")
-//attach to DOM computerhand
-//updateHand(computerHand, ".computer-hand")
-
 let playFirstCard = function(deck, doneCards) {
 	doneCards.push(deck.pop())
 }
 let doneCards = [];
 let graveyard = [];
 
-
-
-
-
 //put functions in playGameButtonFunction
-
-
 let playGameButtonFunction = function() {
 	dealSeven(deck);
 	pHandLength = playerHand.length;
@@ -203,6 +175,17 @@ let computerPlay = function () {
 		let computerHandElement = document.querySelector('.computer-hand');
 		let divToRemove = computerHandElement.childNodes[indexOfCard + 1];
 		computerHandElement.removeChild(divToRemove);
+		//updatehand
+		for (let i = indexOfCard; i<= computerHand.length; i++) {
+			if(i === 0) {
+				i++
+			}
+			let cardToChangeLeft = computerHandElement.childNodes[i];
+			console.log(cardToChangeLeft);
+			cardToChangeLeft.style.left = i*30 + 'px';
+			cardToChangeLeft.style['z-index']= i*10;
+			console.log(cardToChangeLeft);
+		}
 		//console.log(indexOfCard);
 		let playedPileElement = document.querySelector('.played-cards');
 		playedPileElement.removeChild(playedPileElement.firstChild);
@@ -251,7 +234,18 @@ let playCard = function (card) {
 		let playerHandElement = document.querySelector('.player-hand');
 		let divToRemove = playerHandElement.childNodes[indexOfCard + 1];
 		playerHandElement.removeChild(divToRemove);
-		//console.log(indexOfCard);
+		//update the left position of the next cards....so that they slide over to proper spot
+
+		for (let i = indexOfCard; i<= playerHand.length; i++) {
+			if(i === 0) {
+				i++
+			}
+			let cardToChangeLeft = playerHandElement.childNodes[i];
+			console.log(cardToChangeLeft);
+			cardToChangeLeft.style.left = i*30 + 'px';
+			cardToChangeLeft.style['z-index']= i*10;
+			console.log(cardToChangeLeft);
+		}
 		let playedPileElement = document.querySelector('.played-cards');
 		playedPileElement.removeChild(playedPileElement.firstChild);
 		doneCards.push(newCard);
@@ -275,11 +269,30 @@ let playCard = function (card) {
 		let divToRemove = playerHandElement.childNodes[indexOfCard + 1];
 		playerHandElement.removeChild(divToRemove);
 		//console.log(indexOfCard);
+
+		//update position of cards
+
+
+
 		let playedPileElement = document.querySelector('.played-cards');
 		playedPileElement.removeChild(playedPileElement.firstChild);
 		doneCards.push(card);
 		playedCardFunc();
 		//check if hand empty if so console log winner!!!!!
+
+
+		//cardToChangeLeft.style.left = i*30 + 'px';
+		///
+		for (let i = indexOfCard; i<= playerHand.length; i++) {
+			if(i === 0) {
+				i++
+			}
+			let cardToChangeLeft = playerHandElement.childNodes[i];
+			console.log(cardToChangeLeft);
+			cardToChangeLeft.style.left = i*30 + 'px';
+			cardToChangeLeft.style['z-index']= i*10;
+			
+		}
 		checkWin(playerHand);
 		//then get computer to play a card use timer to make more real feeling
 		setTimeout(computerPlay, 3000);
