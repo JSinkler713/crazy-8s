@@ -20,14 +20,12 @@ let makeDeck = function() {
 			}
 			deck.push(newcard);
 		}
-	} 
-	console.log("Make Deck: ", deck)
+	}
 	return deck;
 }
 
 let deck = makeDeck();
 //shuffle deck
-console.log(deck);
 let shuffle = function(deck) {
 	let length = deck.length;
 	let shuffledDeck = [];
@@ -40,26 +38,14 @@ let shuffle = function(deck) {
 	return shuffledDeck;
 }
 deck = shuffle(deck)
-console.log(deck);
 
-
-//deal computer and player hands and update DOM
-
-//deal the player 7 cards need to connect to DOM
-
-//deal player
-//let playerHand = dealSeven(deck);
+//initialize hands
 let playerHand = []
 let pHandLength;
-//get length .. if ever 0 after this it's Game over Player Wins
-//let pHandLength = playerHand.length;
 
-//deal computer
-//let computerHand = dealSeven(deck);
 let computerHand = []
 let cHandLength;
-//get length .. if ever 0 after this it's Game over Comp wins
-//let cHandLength = computerHand.length;
+//deal opening hands function
 let dealSeven = function(deck) {
 	//assume deck was shuffled for now
 	for (let i=0; i < 7; i++) {
@@ -107,9 +93,6 @@ let draw = function () {
   document.querySelector(".player-hand").append(cardDiv);
 }
 
-
-
-
 //check for win
 let checkWin = function(hand) {
 	if(hand.length == 0) {
@@ -119,9 +102,8 @@ let checkWin = function(hand) {
 		} else {
 			winner = "Player";
 		}
-		let winningStatement = (+ winner + " has won!");
+		let winningStatement = (winner + " has won!");
 		let winnerElement = '<div class="winner">'+winningStatement+' Reload the page to play again.'+'</div>';
-
 		document.querySelector('.game').innerHTML = winnerElement;
 	}
 }
@@ -152,7 +134,6 @@ let findCompCard = function () {
 		cardToPlay = card;
 		} else if (card.value == 8) {
 		cardToPlay = card;
-		//maybe choose random suit later
 		}
 	}
 	console.log(cardToPlay);
@@ -162,8 +143,6 @@ let findCompCard = function () {
 //called everytime after player plays a card
 let computerPlay = function () {
 	let compCard = findCompCard();
-	console.log("what do i have:" + compCard)
-	console.log(typeof compCard);
 	if (compCard == undefined) {
 		//computer needs to keep drawing cards.. use timer to make more like a game
 		//take a card from deck and update comp hand and run findCompCard function again
@@ -173,7 +152,6 @@ let computerPlay = function () {
 		setTimeout(console.log("The computer is playing it! This is a valid card: " + compCard.value + "of " + compCard.suit), 5000);
 		let overWrittenCard = doneCards.pop();
 		graveyard.push(overWrittenCard);
-		//need to remove card from computerHand
 		//get index of card and then splice
 		let indexOfCard = computerHand.indexOf(compCard);
 		//splice out of computerHand
@@ -182,7 +160,6 @@ let computerPlay = function () {
 		let computerHandElement = document.querySelector('.computer-hand');
 		let divToRemove = computerHandElement.childNodes[indexOfCard + 1];
 		computerHandElement.removeChild(divToRemove);
-		//updatehand
 		//checkwin
 		checkWin(computerHand);
 		for (let i = indexOfCard; i<= computerHand.length; i++) {
@@ -195,13 +172,10 @@ let computerPlay = function () {
 			cardToChangeLeft.style['z-index']= i*10;
 			console.log(cardToChangeLeft);
 		}
-		//console.log(indexOfCard);
 		let playedPileElement = document.querySelector('.played-cards');
 		playedPileElement.removeChild(playedPileElement.firstChild);
 		doneCards.push(compCard);
 		playedCardFunc();
-		//check if hand empty if so console log winner!!!!!
-		
 	}
 }
 let playedCardFunc = function () {
@@ -219,12 +193,6 @@ playedCardFunc();
 
 //function to allow player to play a card into the "Played" area
 let playCard = function (card) {
-	//see which card was clicked-its the div that represents it - not the object
-	//chec if it has the same "suit" or "value" or is an "eight"
-	console.log("User playing: ", card);
-	console.log("Compare to: ", doneCards[0])
-	//console.log(playedCards[0].value);
-	//console.log(playedCards[0].suit);
 	if (card.value == 8) {
 		let changeSuit = prompt("That's an eight, what do you want to change the suit to?");
 		//
@@ -234,7 +202,6 @@ let playCard = function (card) {
 		}
 		let overWrittenCard = doneCards.pop();
 		graveyard.push(overWrittenCard);
-		//need to remove card from playerHand
 		//get index of card and then splice
 		let indexOfCard = playerHand.indexOf(card);
 		//splice out of playerHand
@@ -243,9 +210,9 @@ let playCard = function (card) {
 		let playerHandElement = document.querySelector('.player-hand');
 		let divToRemove = playerHandElement.childNodes[indexOfCard + 1];
 		playerHandElement.removeChild(divToRemove);
-		//update the left position of the next cards....so that they slide over to proper spot
 		//check if 0 cards update if won!!
 		checkWin(playerHand);
+		//update the left position of the next cards....so that they slide over to proper spot
 		for (let i = indexOfCard; i<= playerHand.length; i++) {
 			if(i === 0) {
 				i++
@@ -260,16 +227,13 @@ let playCard = function (card) {
 		playedPileElement.removeChild(playedPileElement.firstChild);
 		doneCards.push(newCard);
 		playedCardFunc();
-		//check if hand empty if so console log winner!!!!!
-		
-		//then get computer to play use timer to make more real feeling
+		//get computer to play use timer to make more real feeling
 		setTimeout(computerPlay, 3000);
 	}
 	else if (card.suit == doneCards[0].suit || card.value == doneCards[0].value) {
 		console.log("Playing it! That is a valid card")
 		let overWrittenCard = doneCards.pop();
 		graveyard.push(overWrittenCard);
-		//need to remove card from playerHand
 		//get index of card and then splice
 		let indexOfCard = playerHand.indexOf(card);
 		//splice out of playerHand
@@ -278,23 +242,13 @@ let playCard = function (card) {
 		let playerHandElement = document.querySelector('.player-hand');
 		let divToRemove = playerHandElement.childNodes[indexOfCard + 1];
 		playerHandElement.removeChild(divToRemove);
-		//console.log(indexOfCard);
-
 		//check win
 		checkWin(playerHand);
-		//update position of cards
-
-
-
 		let playedPileElement = document.querySelector('.played-cards');
 		playedPileElement.removeChild(playedPileElement.firstChild);
 		doneCards.push(card);
 		playedCardFunc();
-		//check if hand empty if so console log winner!!!!!
-
-
-		//cardToChangeLeft.style.left = i*30 + 'px';
-		///
+		//update position of cards
 		for (let i = indexOfCard; i<= playerHand.length; i++) {
 			if(i === 0) {
 				i++
@@ -313,9 +267,6 @@ let playCard = function (card) {
 	}
 }
 
-
-
-
 //enable draw function when deckElement is clicked
 let deckElement = document.querySelector('.deck');
 deckElement.addEventListener('click', draw);
@@ -325,5 +276,4 @@ let hide = function (e) {
 	this.classList.toggle('hidden');
 }
 let computerHandElement = document.querySelector('.computer-hand');
-console.log(computerHandElement);
 computerHandElement.addEventListener('click', hide);

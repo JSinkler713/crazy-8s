@@ -38,6 +38,9 @@ p {
   transition: background-color 1s;
   background-color: rgb(155, 155,155);
 }
+ .computer-hand > .card {
+  color: rgb(213, 213, 213);
+ }
 
 /* Grid for mobile */
 .game {
@@ -83,7 +86,7 @@ header {
   position: relative;
 }
 .computer-hand {
-  grid-column: 4 / 5;
+  grid-column: 2 / 4;
   grid-row: 4 / 5;
   border: 3px solid yellow;
   position: relative;
@@ -97,7 +100,7 @@ header {
     grid-template-columns: 20% 25% 10% 25% 20%;
     grid-template-rows: 20% 5% 40% 5% 30%;
     border: 2px solid gray;
-    min-height: 600px;
+    min-height: 800px;
 }
 header {
     grid-column: 2 / 5;
