@@ -162,6 +162,7 @@ let computerPlay = function () {
 		computerHandElement.removeChild(divToRemove);
 		//checkwin
 		checkWin(computerHand);
+		//update position
 		for (let i = indexOfCard; i<= computerHand.length; i++) {
 			if(i === 0) {
 				i++
