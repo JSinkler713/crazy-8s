@@ -1,6 +1,25 @@
 //will stop you with global variables
 'use strict'
 
+
+let logo = 'no logo yet'
+
+let suitLogo = function(card) {
+	if (card.suit === "spades") {
+		logo = "<img src='spades.png' class='suit-logo'>"
+	}
+	else if (card.suit === "diamonds") {
+		logo = "<img src='diamonds.png' class='suit-logo'>";
+	}
+	else if (card.suit === "hearts") {
+		logo = "<img src='hearts.png' class='suit-logo'>"
+	}
+	else if (card.suit === "clubs") {
+		logo = "<img src='clubs.png' class='suit-logo'>"
+	}
+}
+
+
 //make the deck 52 cards, 13 of each type, 4 suits.
 let makeDeck = function() {
 	let deck = [];
@@ -23,7 +42,6 @@ let makeDeck = function() {
 	}
 	return deck;
 }
-
 let deck = makeDeck();
 //shuffle deck
 let shuffle = function(deck) {
@@ -63,7 +81,8 @@ let computerDraw = function () {
 	computerHand.push(newCard);
 	let left = computerHand.length;
 	let cardDiv = document.createElement('div');
-	cardDiv.innerText = `${newCard.value} of ${newCard.suit}`
+	suitLogo(newCard);
+    cardDiv.innerHTML = `\ ${newCard.value} <br> ${logo}`;
 	cardDiv.classList.add('card');
 	cardDiv.style['z-index'] = computerHand.length * 10;
 	cardDiv.style.left = (computerHand.length)*30 + 'px';	
@@ -83,7 +102,8 @@ let draw = function () {
   let newCard = deck.splice(0,1)[0];
   playerHand.push(newCard);
   let cardDiv = document.createElement('div');
-  cardDiv.innerText = `${newCard.value} of ${newCard.suit}`
+  suitLogo(newCard);
+  cardDiv.innerHTML = `\ ${newCard.value} <br> ${logo}`;
   cardDiv.classList.add('card');
   cardDiv.style['z-index'] = playerHand.length * 10;
   cardDiv.style.left = (playerHand.length)*30 + 'px';
@@ -182,8 +202,9 @@ let computerPlay = function () {
 let playedCardFunc = function () {
   //this should push a card into the array and then display the top card
     for (let card of doneCards) {
-        let cardDiv = document.createElement('div');
-        cardDiv.innerText = `${card.value} of ${card.suit}`;
+		let cardDiv = document.createElement('div');
+		suitLogo(card);
+  		cardDiv.innerHTML = `\ ${card.value} <br> ${logo}`;
 		cardDiv.classList.add('card');
         document.querySelector(".played-cards").append(cardDiv);
 	}

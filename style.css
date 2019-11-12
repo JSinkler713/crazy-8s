@@ -1,13 +1,20 @@
 body {
   height: 100vh;
 }
-
+.suit-logo {
+  width: 1.5rem;
+  height: 1.5rem;
+}
 p {
  border: 20px solid gray;
 }
 
 .hidden {
   opacity: 0;
+}
+.played-cards > .card:hover {
+  top: 0;
+  bottom: 0;
 }
 .card:hover {
   box-shadow: 5px 5px 5px black;
@@ -45,6 +52,9 @@ p {
  .computer-hand > .card {
   color: rgb(213, 213, 213);
  }
+.computer-hand > .card > .suit-logo {
+  opacity: 0;
+}
 .computer-hand>.card:hover {
   color:black;
   transition: color 2s;
